@@ -48,6 +48,7 @@ module.exports = class AniList {
         if (typeof amount !== "number") { throw new Error("Amount is not a number"); }
         
         var search = {
+            "everything": "media (search: $search) { id title { romaji english native userPreferred } }",
             "anime": "media (type: ANIME, search: $search) { id title { romaji english native userPreferred } }",
             "manga": "media (type: MANGA, search: $search) { id title { romaji english native userPreferred } }",
             "char": "characters (search: $search) { id name { full native } }" ,
@@ -56,6 +57,7 @@ module.exports = class AniList {
         }
 
         switch (type.toLowerCase()) {
+            case "everything": var query = search["everything"]; break;
             case "anime": var query = search["anime"]; break;
             case "manga": var query = search["manga"]; break;
             case "character": var query = search["char"]; break;
